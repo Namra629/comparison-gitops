@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: sample
-          image: nginx
+          image: ubuntu
