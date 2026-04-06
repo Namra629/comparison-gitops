@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-qmgr-prd-config
+data:
+  ENV: "prd"
+  APP_NAME: "order-qmgr"
+  LOG_LEVEL: "INFO"
+  REGION: "us-east"

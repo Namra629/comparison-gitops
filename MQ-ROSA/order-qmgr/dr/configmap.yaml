@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-qmgr-dr-config
+data:
+  ENV: "dr"
+  APP_NAME: "order-qmgr"
+  LOG_LEVEL: "INFO"
+  REGION: "us-east"
