@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+ROOT_DIR="$(pwd)"
+
+echo "=== DRY RUN: MQ QMgr Restructuring ==="
+echo "Root: $ROOT_DIR"
+echo
+
+for dir in "$ROOT_DIR"/*-qmgr; do
+  [ -d "$dir" ] || continue
+
+  echo "--------------------------------------------------"
+  echo "Would process: $dir"
+
+  BASE_DIR="$dir/base"
+  OVERLAYS_DIR="$dir/overlays"
+
+  # Check base creation
+  if [ ! -d "$BASE_DIR" ]; then
+    echo "  + Would create: $BASE_DIR"
+  else
+    echo "  = Base already exists: $BASE_DIR"
+  fi
+
+  # Check overlays creation
+  if [ ! -d "$OVERLAYS_DIR" ]; then
+    echo "  + Would create: $OVERLAYS_DIR"
+  else
+    echo "  = Overlays already exists: $OVERLAYS_DIR"
+  fi
+
+  # Check env folders
+  for env in prd dr; do
+    if [ -d "$dir/$env" ]; then
+      if [ -d "$OVERLAYS_DIR/$env" ]; then
+        echo "  ! SKIP: $env already exists in overlays"
+      else
+        echo "  → Would move: $dir/$env  →  $OVERLAYS_DIR/"
+      fi
+    else
+      echo "  - Not found: $dir/$env"
+    fi
+  done
+
+done
+
+echo
+echo "=== DRY RUN COMPLETE ==="
